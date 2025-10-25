@@ -1,0 +1,73 @@
+### 📈 Previsor de Tendência Intraday de Ativos Financeiros.
+
+Este projeto utiliza a biblioteca yfinance para obter dados históricos de 1 minuto de um ativo financeiro (ex: Bitcoin) e aplica um modelo de Machine Learning (scikit-learn) para prever se o preço subirá ou cairá no próximo minuto.
+
+⚠️ AVISO DE RISCO: Este projeto é estritamente educacional. Prever o mercado financeiro em intervalos de 1 minuto é extremamente desafiador e volátil. O uso deste script para decisões de investimento na vida real pode resultar em perdas financeiras.
+
+💻 Requisitos do Sistema
+- Sistema Operacional: Windows 10/11
+- Python: Versão 3.12 (Recomendado)
+
+## 📦 Instalação e Configuração
+Siga os passos abaixo para preparar seu ambiente e executar o script.
+
+1. Instalar o Python 3.12
+Se você ainda não tem o Python instalado, baixe o instalador oficial no site do Python.
+
+🔗 Baixar [Python3.12](https://www.python.org/downloads/release/python-3120/)
+
+⚠️ Importante na Instalação: Durante a instalação, marque a opção "Add python.exe to PATH" (Adicionar python.exe ao PATH). Isso facilitará a execução dos comandos no terminal.
+
+2. Baixar o projeto
+- Você pode realizar o download do projeto via zip. [baixar aqui](https://github.com/matheus9999/binary-option-bot/archive/refs/heads/main.zip)
+- Você pode clonar o projeto usando o git
+```bash
+git clone https://github.com/matheus9999/binary-option-bot.git
+```
+
+3. Crie o ambiente virutal
+```bash
+# Cria o ambiente virtual
+python3 -m venv venv
+
+# Ativa o ambiente virtual (no Windows, use este comando)
+.\venv\Scripts\activate
+
+# Ativa o ambiente virtual (no Linux, use este comando)
+. ./venv/bin/activate
+```
+
+Obs. Verifique se esta aparecendo o `venv` no inicio do terminal.
+<img width="786" height="32" alt="image" src="https://github.com/user-attachments/assets/8b62441c-6cf8-415d-a8bd-ac422d2a8c79" />
+
+
+4. Instale as dependências
+```bash
+pip install -r requirements.txt
+```
+
+### ▶️ Execução do robô
+
+Execução do script
+```bash
+python3 main.py
+```
+
+<img width="1375" height="635" alt="image" src="https://github.com/user-attachments/assets/9959c7b9-bb35-4cd4-98d7-1dd0034840bb" />
+
+### ⚙️ Configurações Importantes no Script
+```markdown
+BOT_SCHEDULE_IN_MINUTE=1 // Intervalo de execução do robô.
+TICKER="BTC-USD" // Cotação, pode obter outras cotações através do Yahoo Finance.
+TICKER_PERIOD="1d" // Periodo da cotação, no exemplo 1 dia.
+TICKER_INTERVAL="1m" // Intervalo da cotação, no exemplo de 1 em 1 minuto.
+LAGS=10 // Quantidade de velas a ser analisada.
+```
+
+### 💡 Observações finais
+
+As cotações podem ser encontrados no [Yahoo Finance](https://finance.yahoo.com/quote/BTC-USD/)
+
+<img width="1771" height="1009" alt="image" src="https://github.com/user-attachments/assets/8d0e52c4-3bba-4394-9a1b-ecbf64a03288" />
+
+
