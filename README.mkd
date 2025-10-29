@@ -1,73 +1,172 @@
-### 📈 Previsor de Tendência Intraday de Ativos Financeiros.
+# 📈 Robô de Análise de Tendência para Ativos Financeiros (Binary Option Bot)
 
-Este projeto utiliza a biblioteca yfinance para obter dados históricos de 1 minuto de um ativo financeiro (ex: Bitcoin) e aplica um modelo de Machine Learning (scikit-learn) para prever se o preço subirá ou cairá no próximo minuto.
+## 📄 Descrição do Projeto
 
-⚠️ AVISO DE RISCO: Este projeto é estritamente educacional. Prever o mercado financeiro em intervalos de 1 minuto é extremamente desafiador e volátil. O uso deste script para decisões de investimento na vida real pode resultar em perdas financeiras.
+Este projeto é um robô de software (`bot`) desenvolvido em Python para fins educacionais. Sua principal função é analisar dados históricos de ativos financeiros em tempo real, aplicar um modelo de Machine Learning para prever a tendência de preço (se vai subir ou cair) no próximo intervalo de tempo e, em seguida, exibir essa previsão.
 
-💻 Requisitos do Sistema
-- Sistema Operacional: Windows 10/11
-- Python: Versão 3.12 (Recomendado)
+O bot utiliza a biblioteca `yfinance` para buscar dados de ativos diretamente do Yahoo Finance e um modelo `RandomForestClassifier` da biblioteca `scikit-learn` para realizar as previsões.
 
-## 📦 Instalação e Configuração
-Siga os passos abaixo para preparar seu ambiente e executar o script.
+⚠️ **AVISO DE RISCO:** Este projeto é estritamente para fins de estudo e demonstração de conceitos de análise de dados e Machine Learning. O mercado financeiro é extremamente volátil e imprevisível. **Não utilize este robô para tomar decisões de investimento reais**, pois isso pode resultar em perdas financeiras significativas.
 
-1. Instalar o Python 3.12
-Se você ainda não tem o Python instalado, baixe o instalador oficial no site do Python.
+---
 
-🔗 Baixar [Python3.12](https://www.python.org/downloads/release/python-3120/)
+## 🛠️ Como Instalar e Configurar
 
-⚠️ Importante na Instalação: Durante a instalação, marque a opção "Add python.exe to PATH" (Adicionar python.exe ao PATH). Isso facilitará a execução dos comandos no terminal.
+As instruções abaixo são compatíveis com **Windows** e **Linux**.
 
-2. Baixar o projeto
-- Você pode realizar o download do projeto via zip. [baixar aqui](https://github.com/matheus9999/binary-option-bot/archive/refs/heads/main.zip)
-- Você pode clonar o projeto usando o git
+### 1. Pré-requisitos
+- **Python 3.10 ou superior:** É necessário ter o Python instalado.
+  - [Baixar Python](https://www.python.org/downloads/)
+  - **Importante (Windows):** Durante a instalação, marque a caixa `Add python.exe to PATH`.
+
+- **Git (Opcional):** Para clonar o repositório.
+  - [Baixar Git](https://git-scm.com/downloads)
+
+### 2. Baixe o Projeto
+Você pode clonar o repositório com Git (recomendado) ou baixar o arquivo ZIP.
+
 ```bash
+# Clone o repositório
 git clone https://github.com/matheus9999/binary-option-bot.git
+cd binary-option-bot
 ```
 
-3. Crie o ambiente virutal
+### 3. Crie e Ative um Ambiente Virtual (`venv`)
+Isso isola as dependências do projeto.
+
 ```bash
-# Cria o ambiente virtual
+# Crie o ambiente virtual
 python3 -m venv venv
 
-# Ativa o ambiente virtual (no Windows, use este comando)
+# Ative o ambiente (Linux/macOS)
+source venv/bin/activate
+
+# Ative o ambiente (Windows - PowerShell/CMD)
 .\venv\Scripts\activate
-
-# Ativa o ambiente virtual (no Linux, use este comando)
-. ./venv/bin/activate
 ```
+Após a ativação, você verá `(venv)` no início do seu terminal.
 
-Obs. Verifique se esta aparecendo o `venv` no inicio do terminal.
-<img width="786" height="32" alt="image" src="https://github.com/user-attachments/assets/8b62441c-6cf8-415d-a8bd-ac422d2a8c79" />
+### 4. Instale as Dependências
+Execute o comando abaixo para instalar todas as bibliotecas necessárias.
 
-
-4. Instale as dependências
 ```bash
 pip install -r requirements.txt
 ```
 
-### ▶️ Execução do robô
+### 5. Execução do Robô
+Para iniciar o robô, basta executar o script principal:
 
-Execução do script
 ```bash
 python3 main.py
 ```
+O robô fará uma execução inicial e depois continuará executando em intervalos definidos (padrão: 15 minutos).
 
-<img width="1375" height="635" alt="image" src="https://github.com/user-attachments/assets/9959c7b9-bb35-4cd4-98d7-1dd0034840bb" />
+```bash
+=========================================
+=== INICIANDO EXECUÇÃO DO BOT: Wed Oct 29 00:38:11 2025 ===
+=========================================
+Ativo: BTC-USD | Intervalo: 1m | Período: 8d
 
-### ⚙️ Configurações Importantes no Script
-```markdown
-BOT_SCHEDULE_IN_MINUTE=1 // Intervalo de execução do robô.
-TICKER="BTC-USD" // Cotação, pode obter outras cotações através do Yahoo Finance.
-TICKER_PERIOD="1d" // Periodo da cotação, no exemplo 1 dia.
-TICKER_INTERVAL="1m" // Intervalo da cotação, no exemplo de 1 em 1 minuto.
-LAGS=10 // Quantidade de velas a ser analisada.
+--- 1. Coletando Dados para BTC-USD ---
+Dados coletados: 9214 velas.
+--- 2. Criando Features e Alvo com base na nova estratégia ---
+Adicionadas 25 colunas de indicadores e padrões.
+Total de velas válidas após engenharia de features: 9114
+--- 3. Treinamento e Avaliação do Modelo ---
+Amostra de treino: 7291
+Amostra de teste: 1823
+
+Iniciando treinamento do modelo...
+
+--- Avaliação do Modelo (em dados de teste) ---
+Acurácia: 52.11%
+
+Relatório de Classificação:
+              precision    recall  f1-score   support
+
+        CAIR       0.54      0.49      0.51       936
+       SUBIR       0.51      0.56      0.53       887
+
+    accuracy                           0.52      1823
+   macro avg       0.52      0.52      0.52      1823
+weighted avg       0.52      0.52      0.52      1823
+
+Matriz de Confusão:
+[[456 480]
+ [393 494]]
+
+--- Features Mais Importantes ---
+lag_1     0.096356
+lag_2     0.081873
+lag_3     0.078093
+lag_8     0.072578
+lag_6     0.070855
+lag_10    0.070723
+rsi       0.070648
+lag_4     0.069258
+lag_7     0.068445
+lag_9     0.068050
+dtype: float64
+
+Salvando modelo em artifacts/trained_model.joblib...
+--- 4. Fazendo a Próxima Previsão ---
+
+Usando as seguintes features (dados mais recentes):
+Datetime      2025-10-29 03:33:00+00:00
+Dividends                      0.000000
+Stock Splits                   0.000000
+lag_1                          0.000254
+lag_2                          0.000333
+lag_3                          0.001039
+lag_4                          0.000481
+lag_5                          0.000714
+lag_6                          0.000356
+lag_7                          0.000349
+lag_8                          0.000186
+
+PREVISÃO: O modelo prevê que o preço vai CAIR.
+Confiança: 57.12%
+
+=== EXECUÇÃO FINALIZADA ===
+
+Agendando a próxima execução para daqui a 1 minutos.
+
 ```
 
-### 💡 Observações finais
+---
 
-As cotações podem ser encontrados no [Yahoo Finance](https://finance.yahoo.com/quote/BTC-USD/)
+## 📊 Fontes de Dados
 
-<img width="1771" height="1009" alt="image" src="https://github.com/user-attachments/assets/8d0e52c4-3bba-4394-9a1b-ecbf64a03288" />
+O robô obtém os dados históricos e em tempo real dos ativos financeiros através da biblioteca **`yfinance`**, que extrai informações diretamente do **Yahoo Finance**.
 
+Isso significa que você pode configurar o robô para analisar qualquer ativo que possua um "ticker" (símbolo) válido no Yahoo Finance.
 
+- **Exemplos de Tickers:**
+  - **Moedas:** `EURUSD=X`, `BTC-USD`, `ETH-USD`
+  - **Ações:** `AAPL`, `GOOGL`, `PETR4.SA`
+
+Você pode encontrar outros tickers pesquisando diretamente no site: [finance.yahoo.com](https://finance.yahoo.com/).
+
+---
+
+## 🧠 Estratégias de Análise
+
+O robô não usa uma única estratégia fixa, mas sim uma abordagem de **Machine Learning**. Ele calcula uma série de indicadores de análise técnica e padrões de candlestick a partir dos dados históricos e os utiliza como "features" (características) para treinar um modelo. O modelo aprende a identificar quais combinações desses indicadores têm maior probabilidade de levar a uma alta ou baixa no preço.
+
+Os principais indicadores e padrões utilizados são:
+
+1.  **Features de Lag (Momentum):**
+    - Calcula a variação percentual do preço de fechamento em relação aos últimos `N` períodos (ex: 1 minuto atrás, 2 minutos atrás, etc.). Isso ajuda o modelo a entender a força e a direção do movimento recente.
+
+2.  **Indicadores Técnicos:**
+    - **Médias Móveis Exponenciais (EMAs):** Utiliza três EMAs (curta de 5 períodos, média de 15 e longa de 100) para identificar tendências de curto, médio e longo prazo. Cruzamentos entre essas médias são sinais importantes.
+    - **Índice de Força Relativa (RSI):** Um oscilador de momentum que mede a velocidade e a mudança dos movimentos de preços para identificar condições de "sobrecompra" ou "sobrevenda".
+
+3.  **Padrões de Candlestick:**
+    O robô é programado para reconhecer os seguintes padrões de velas, que são fortes indicativos de psicologia de mercado:
+    - **Engolfo (Engulfing):** Um padrão de reversão forte (alta ou baixa).
+    - **Pin Bar (Martelo / Estrela Cadente):** Indica uma possível rejeição de preço e reversão.
+    - **Inside Bar:** Sinaliza consolidação e indecisão, muitas vezes antes de um movimento forte.
+    - **Marubozu:** Uma vela "cheia" que indica forte momentum de compra ou venda.
+
+O modelo de `RandomForestClassifier` analisa o conjunto de todos esses indicadores e decide qual é a previsão mais provável (SUBIR ou CAIR) para o próximo período.
