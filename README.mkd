@@ -23,7 +23,7 @@ As instruções abaixo são compatíveis com **Windows** e **Linux**.
   - [Baixar Git](https://git-scm.com/downloads)
 
 ### 2. Baixe o Projeto
-Você pode clonar o repositório com Git (recomendado) ou baixar o arquivo ZIP.
+Você pode clonar o repositório com Git (recomendado) ou baixar o arquivo ZIP: [Baixe Aqui](https://github.com/matheus9999/binary-option-bot/archive/refs/heads/main.zip)
 
 ```bash
 # Clone o repositório
@@ -62,74 +62,26 @@ python3 main.py
 O robô fará uma execução inicial e depois continuará executando em intervalos definidos (padrão: 15 minutos).
 
 ```bash
-=========================================
-=== INICIANDO EXECUÇÃO DO BOT: Wed Oct 29 00:38:11 2025 ===
-=========================================
-Ativo: BTC-USD | Intervalo: 1m | Período: 8d
+==================================
+✅ OPERAÇÃO @FERNANDINHO TRADER ✅
+📈 ATIVO: BTC/BRL
+⏰ EXPIRAÇÃO: 1M
+⏱️ ENTRADA: 21:02:58 — EXPIRAÇÃO: 21:03:58
+📊 PREVISÃO: O Robô acredita que o valor irá subir ⬆️
+🤖 CONFIANÇA (Confiança que o robô tem da previsão): 69.71%
+📢 MOTIVO: Foram encontrados os seguintes padrõas no gráfico:
+    - Marubozu de Baixa
 
---- 1. Coletando Dados para BTC-USD ---
-Dados coletados: 9214 velas.
---- 2. Criando Features e Alvo com base na nova estratégia ---
-Adicionadas 25 colunas de indicadores e padrões.
-Total de velas válidas após engenharia de features: 9114
---- 3. Treinamento e Avaliação do Modelo ---
-Amostra de treino: 7291
-Amostra de teste: 1823
 
-Iniciando treinamento do modelo...
-
---- Avaliação do Modelo (em dados de teste) ---
-Acurácia: 52.11%
-
-Relatório de Classificação:
-              precision    recall  f1-score   support
-
-        CAIR       0.54      0.49      0.51       936
-       SUBIR       0.51      0.56      0.53       887
-
-    accuracy                           0.52      1823
-   macro avg       0.52      0.52      0.52      1823
-weighted avg       0.52      0.52      0.52      1823
-
-Matriz de Confusão:
-[[456 480]
- [393 494]]
-
---- Features Mais Importantes ---
-lag_1     0.096356
-lag_2     0.081873
-lag_3     0.078093
-lag_8     0.072578
-lag_6     0.070855
-lag_10    0.070723
-rsi       0.070648
-lag_4     0.069258
-lag_7     0.068445
-lag_9     0.068050
-dtype: float64
-
-Salvando modelo em artifacts/trained_model.joblib...
---- 4. Fazendo a Próxima Previsão ---
-
-Usando as seguintes features (dados mais recentes):
-Datetime      2025-10-29 03:33:00+00:00
-Dividends                      0.000000
-Stock Splits                   0.000000
-lag_1                          0.000254
-lag_2                          0.000333
-lag_3                          0.001039
-lag_4                          0.000481
-lag_5                          0.000714
-lag_6                          0.000356
-lag_7                          0.000349
-lag_8                          0.000186
-
-PREVISÃO: O modelo prevê que o preço vai CAIR.
-Confiança: 57.12%
-
-=== EXECUÇÃO FINALIZADA ===
-
-Agendando a próxima execução para daqui a 1 minutos.
+==================================
+✅ OPERAÇÃO @FERNANDINHO TRADER ✅
+📈 ATIVO: BTC/BRL
+⏰ EXPIRAÇÃO: 1M
+⏱️ ENTRADA: 21:04:01 — EXPIRAÇÃO: 21:05:01
+📊 PREVISÃO: O Robô acredita que o valor irá descer ⬇️
+🤖 CONFIANÇA (Confiança que o robô tem da previsão): 82.64%
+📢 MOTIVO: Foram encontrados os seguintes padrõas no gráfico:
+    - Pin Bar de Baixa (Estrela Cadente)
 
 ```
 
@@ -137,13 +89,13 @@ Agendando a próxima execução para daqui a 1 minutos.
 
 ## 📊 Fontes de Dados
 
-O robô obtém os dados históricos e em tempo real dos ativos financeiros através da biblioteca **`yfinance`**, que extrai informações diretamente do **Yahoo Finance**.
+O robô obtém os dados históricos e em tempo real dos ativos financeiros através da biblioteca **twelvedata**, que extrai informações diretamente do **Mercado Financeiro**.
 
 Isso significa que você pode configurar o robô para analisar qualquer ativo que possua um "ticker" (símbolo) válido no Yahoo Finance.
 
 - **Exemplos de Tickers:**
-  - **Moedas:** `EURUSD=X`, `BTC-USD`, `ETH-USD`
-  - **Ações:** `AAPL`, `GOOGL`, `PETR4.SA`
+  - **Moedas:** `BTC/USD`, `ETH/USD`
+  - **Ações:** `AAPL`, `GOOGL`
 
 Você pode encontrar outros tickers pesquisando diretamente no site: [finance.yahoo.com](https://finance.yahoo.com/).
 

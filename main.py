@@ -19,43 +19,32 @@ from src.predictor import make_prediction
 load_dotenv()
 
 # Carrega as variáveis de ambiente com valores padrão para segurança
-TICKER = os.getenv("TICKER", "EURUSD=X")
-TICKER_PERIOD = os.getenv("TICKER_PERIOD", "1mo")
-TICKER_INTERVAL = os.getenv("TICKER_INTERVAL", "5m")
+USER = os.getenv("USER_BOT", "@FERNANDINHO TRADER")
+TICKER = os.getenv("TICKER", "BTC")
+INTERVAL = os.getenv("INTERVAL", "1min")
 LAGS = int(os.getenv("LAGS", 5))
-BOT_SCHEDULE_IN_MINUTE = int(os.getenv("BOT_SCHEDULE_IN_MINUTE", 15))
+BOT_SCHEDULE_IN_MINUTE = int(os.getenv("BOT_SCHEDULE_IN_MINUTE", 1))
 
 def job():
     """Função principal do bot que executa todo o pipeline."""
-    print("\n=========================================")
-    print(f"=== INICIANDO EXECUÇÃO DO BOT: {time.ctime()} ===")
-    print("=========================================")
-    print(f"Ativo: {TICKER} | Intervalo: {TICKER_INTERVAL} | Período: {TICKER_PERIOD}")
 
     try:
         # --- ETAPA 1: COLETA DE DADOS ---
-        df_raw = fetch_data(TICKER, TICKER_PERIOD, TICKER_INTERVAL)
+        df_raw = fetch_data(TICKER, INTERVAL)
 
         # --- ETAPA 2: ENGENHARIA DE FEATURES ---
         df_featured = create_features(df_raw.copy(), lags=LAGS)
 
         # --- ETAPA 3: TREINAMENTO E AVALIAÇÃO ---
-        # Em um cenário real, o treino pode não ser executado a cada vez.
-        # Poderia ser feito diariamente ou semanalmente.
         train_model(df_featured.copy())
 
         # --- ETAPA 4: PREVISÃO ---
-        # A previsão usa o último dado disponível após a criação de features.
-        make_prediction(df_featured.copy())
+        make_prediction(df_featured.copy(), user=USER, ticker=TICKER, interval=INTERVAL)
 
     except ValueError as e:
         print(f"\nERRO: {e}")
-        print("A execução foi interrompida.")
     except Exception as e:
         print(f"\nOcorreu um erro inesperado: {e}")
-        # Em um ambiente de produção, seria bom ter um log mais detalhado.
-
-    print("\n=== EXECUÇÃO FINALIZADA ===")
 
 
 if __name__ == "__main__":
@@ -63,7 +52,6 @@ if __name__ == "__main__":
     job()
 
     # Agenda a execução para o futuro
-    print(f"\nAgendando a próxima execução para daqui a {BOT_SCHEDULE_IN_MINUTE} minutos.")
     schedule.every(BOT_SCHEDULE_IN_MINUTE).minutes.do(job)
 
     while True:

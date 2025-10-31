@@ -62,8 +62,6 @@ def create_features(df: pd.DataFrame, lags: int = 5) -> pd.DataFrame:
     Returns:
         DataFrame com as features e o alvo.
     """
-    print("--- 2. Criando Features e Alvo com base na nova estratégia ---")
-    
     # 1. Features de Lag
     for i in range(1, lags + 1):
         df[f'lag_{i}'] = df['Close'].pct_change(periods=i)
@@ -80,15 +78,11 @@ def create_features(df: pd.DataFrame, lags: int = 5) -> pd.DataFrame:
     df['inside_bar'] = is_inside_bar(df)
     df['marubozu'] = is_marubozu(df)
 
-    print(f"Adicionadas {len(df.columns)} colunas de indicadores e padrões.")
-
     # 4. Criação do Alvo (Target)
     df['price_future'] = df['Close'].shift(-1)
     df['target'] = np.where(df['price_future'] > df['Close'], 1, 0)
 
     # 5. Limpeza Final
     df = df.dropna()
-    
-    print(f"Total de velas válidas após engenharia de features: {len(df)}")
     
     return df
